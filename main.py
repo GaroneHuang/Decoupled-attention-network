@@ -177,7 +177,7 @@ if __name__ == '__main__':
                      test_acc_counter])
             if nEpoch % cfgs.saving_cfgs['saving_epoch_interval'] == 0 and \
                batch_idx % cfgs.saving_cfgs['saving_iter_interval'] == 0 and \
-               batch_idx != 0:
+               batch_idx != 0 and nEpoch != 0:
                 for i in range(0, len(model)):
                     torch.save(model[i].state_dict(),
                              cfgs.saving_cfgs['saving_path'] + 'E{}_I{}-{}_M{}.pth'.format(
