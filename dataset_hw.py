@@ -196,3 +196,23 @@ class IAMSynthesisDataset(Dataset):
         imageN = imageN.reshape(1,self.conH,self.conW)
         sample = {'image': torch.from_numpy(imageN), 'label': label}
         return sample
+
+class MixDataset(Dataset):
+    def __init__(self, datasets, cfgs, probs):
+        super().__init__()
+        self.datasets = [dataset(cfg) for dataset, cfg in zip(datasets, cfgs)]
+        self.length = np.sum([len(dataset) * prob for dataset, prob in zip(self.datasets, probs)]) * len(datasets)
+        self.prob_sums = [0.]
+        for prob in probs:
+            self.prob_sums.append(self.prob_sums[-1] + prob)
+        self.prob_sums = np.array(self.prob_sums[1:])
+
+    def __len__(self):
+        return self.length
+
+    def __getitem__(self, index):
+        rand_num = random.random()
+        dataset_idx = np.where(self.prob_sums >= rand_num)[0][0]
+        idx = random.randint(0, len(self.datasets[dataset_idx]) - 1)
+        sample = self.datasets[dataset_idx][idx]
+        return sample

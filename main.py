@@ -1,5 +1,6 @@
 # coding:utf-8
 from __future__ import print_function
+import os
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -168,6 +169,13 @@ if __name__ == '__main__':
                                     batch_idx,
                                     total_iters,
                                     loss_counter.get_loss()))
+                logs_f = open(os.path.join(cfgs.saving_cfgs['saving_path'], "logs.txt"), "a", encoding="utf-8")
+                logs_f.writelines('Epoch: {}, Iter: {}/{}, Loss dan: {}'.format(
+                                    nEpoch,
+                                    batch_idx,
+                                    total_iters,
+                                    loss_counter.get_loss()) + "\n")
+                logs_f.close()
                 train_acc_counter.show()
             if batch_idx % cfgs.global_cfgs['test_interval'] == 0 and batch_idx != 0:
                 test((test_loader), 

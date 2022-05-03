@@ -112,7 +112,7 @@ optimizer_cfgs = {
 
 saving_cfgs = {
     'saving_epoch_interval': 5,
-    'saving_path': 'models/hw/iam_words2line/',
+    'saving_path': 'models/hw/iam_words2line_aug/',
 }
 
 # def mkdir(path_):
