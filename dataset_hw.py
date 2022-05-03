@@ -5,7 +5,7 @@ import numpy as np
 import os
 import torch
 import cv2
-import Augment
+from augment import distort, stretch, perspective
 import random
 
 class LineGenerate():
@@ -35,23 +35,17 @@ class LineGenerate():
                     self.label.append(elements[-1])
                     count += 1
         self.len = count
-        self.idx = 0
 
     def get_len(self):
         return self.len
 
-    def generate_line(self):
+    def generate_line(self, idx):
         if self.training:
-            idx = np.random.randint(self.len)
             image = self.image[idx]
             label = self.label[idx]
         else:
-            idx = self.idx
             image = self.image[idx]
             label = self.label[idx]
-            self.idx += 1
-        if self.idx == self.len:
-            self.idx -= self.len
 
         h,w = image.shape
         imageN = np.ones((self.conH,self.conW))*255
@@ -74,11 +68,11 @@ class LineGenerate():
         if self.augment and self.training:
             imageN = imageN.astype('uint8')
             if torch.rand(1) < 0.3:
-                imageN = Augment.GenerateDistort(imageN, random.randint(3, 8))
+                imageN = distort(imageN, random.randint(3, 8))
             if torch.rand(1) < 0.3:
-                imageN = Augment.GenerateStretch(imageN, random.randint(3, 8))
+                imageN = stretch(imageN, random.randint(3, 8))
             if torch.rand(1) < 0.3:
-                imageN = Augment.GeneratePerspective(imageN)
+                imageN = perspective(imageN)
             
         imageN = imageN.astype('float32')
         imageN = (imageN-127.5)/127.5
@@ -149,29 +143,31 @@ class WordGenerate():
         imageN = imageN.astype('uint8')
         if self.augment:
             if torch.rand(1) < 0.3:
-                imageN = Augment.GenerateDistort(imageN, random.randint(3, 8))
+                imageN = distort(imageN, random.randint(3, 8))
             if torch.rand(1) < 0.3:
-                imageN = Augment.GenerateStretch(imageN, random.randint(3, 8))
+                imageN = stretch(imageN, random.randint(3, 8))
             if torch.rand(1) < 0.3:
-                imageN = Augment.GeneratePerspective(imageN)
+                imageN = perspective(imageN)
 
         imageN = imageN.astype('float32')
         imageN = (imageN-127.5)/127.5
         return imageN, label        
 
 class IAMDataset(Dataset):
-    def __init__(self, img_list, img_height, img_width, transform=None):
+    def __init__(self, img_list, img_height, img_width, augment = False, transform=None):
+        self.training = True
+        self.augment = augment
         IAMPath = img_list
         self.conH = img_height
         self.conW = img_width
-        self.LG = LineGenerate(IAMPath, self.conH, self.conW)
+        self.LG = LineGenerate(IAMPath, self.conH, self.conW, self.augment, self.training)
 
     def __len__(self):
         return self.LG.get_len()
 
     def __getitem__(self, idx):
         
-        imageN, label = self.LG.generate_line()
+        imageN, label = self.LG.generate_line(idx)
 
         imageN = imageN.reshape(1,self.conH,self.conW)
         sample = {'image': torch.from_numpy(imageN), 'label': label}
@@ -193,7 +189,7 @@ class IAMSynthesisDataset(Dataset):
 
     def __getitem__(self, idx):
         if np.random.rand() < 0.5:
-            imageN, label = self.LG.generate_line()
+            imageN, label = self.LG.generate_line(idx)
         else:
             imageN, label = self.WG.word_generate()
 

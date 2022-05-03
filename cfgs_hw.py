@@ -6,14 +6,14 @@ from dataset_hw import *
 from DAN import *
 
 global_cfgs = {
-    'state': 'Test',
+    'state': 'Train',
     'epoch': 100,
     'show_interval': 50,
     'test_interval': 500
 }
 
 dataset_cfgs = {
-    'dataset_train': IAMSynthesisDataset,
+    'dataset_train': IAMDataset,
     'dataset_train_args': {
         'img_list': 'data/IAM/train_list.txt',
         'img_height': 192,
@@ -62,13 +62,13 @@ net_cfgs = {
         'dropout': 0.7,
     },
 
-    'init_state_dict_fe': 'models/hw/exp1_E99_I2000-2295_M0.pth',
-    'init_state_dict_cam': 'models/hw/exp1_E99_I2000-2295_M1.pth',
-    'init_state_dict_dtd': 'models/hw/exp1_E99_I2000-2295_M2.pth',
+    # 'init_state_dict_fe': 'models/hw/exp1_E99_I2000-2295_M0.pth',
+    # 'init_state_dict_cam': 'models/hw/exp1_E99_I2000-2295_M1.pth',
+    # 'init_state_dict_dtd': 'models/hw/exp1_E99_I2000-2295_M2.pth',
 
-    # 'init_state_dict_fe': None,
-    # 'init_state_dict_cam': None,
-    # 'init_state_dict_dtd': None,
+    'init_state_dict_fe': None,
+    'init_state_dict_cam': None,
+    'init_state_dict_dtd': None,
 }
 
 optimizer_cfgs = {
@@ -114,7 +114,7 @@ saving_cfgs = {
     'saving_iter_interval': 2000,
     'saving_epoch_interval': 3,
 
-    'saving_path': 'models/hw/exp1_',
+    'saving_path': 'models/hw/iam_raw',
 }
 
 def mkdir(path_):
