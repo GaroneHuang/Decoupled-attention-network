@@ -18,7 +18,7 @@ dataset_cfgs = {
         'img_list': 'data/IAM/train_list.txt',
         'img_height': 192,
         'img_width': 2048,
-        'augment': True, # with the data augmentation toolkit
+        'augment': False, # with the data augmentation toolkit
     },
     'dataloader_train': {
         'batch_size': 24,
@@ -111,7 +111,6 @@ optimizer_cfgs = {
 }
 
 saving_cfgs = {
-    'saving_iter_interval': 1,
     'saving_epoch_interval': 5,
     'saving_path': 'models/hw/iam_words2line/',
 }
