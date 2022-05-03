@@ -130,4 +130,5 @@ def showcfgs(s):
     print('')
 
 # mkdir(saving_cfgs['saving_path'])
-os.makedirs(saving_cfgs['saving_path'], exist_ok=True)
+if not os.path.exists(saving_cfgs['saving_path']):
+    os.makedirs(saving_cfgs['saving_path'])
