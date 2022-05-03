@@ -114,14 +114,14 @@ class WordGenerate():
     def get_len(self):
         return self.len
 
-    def word_generate(self):
+    def word_generate(self, index):
 
-        endW = np.random.randint(50);
+        endW = random.randint(0, 49);
         label = ''
         imageN = np.ones((self.conH,self.conW))*255
         imageList =[]
         while True:
-            idx = np.random.randint(self.len)
+            idx = random.randint(0, self.len - 1)
             image = self.image[idx]
             h,w = image.shape
             beginH = int(abs(self.conH-h)/2)
@@ -133,7 +133,7 @@ class WordGenerate():
             else: 
                 imageN[:,endW:endW+w] = image[beginH:beginH+self.conH]
 
-            endW += np.random.randint(60)+20+w
+            endW += random.randint(0, 59)+20+w
             if label == '':
                 label = self.label[idx]
             else:
@@ -185,13 +185,13 @@ class IAMSynthesisDataset(Dataset):
         self.WG = WordGenerate(IAMPath, self.conH, self.conW, self.augment)
 
     def __len__(self):
-        return self.WG.get_len()
+        return self.LG.get_len()
 
     def __getitem__(self, idx):
-        if np.random.rand() < 0.5:
+        if random.random() < 0.5:
             imageN, label = self.LG.generate_line(idx)
         else:
-            imageN, label = self.WG.word_generate()
+            imageN, label = self.WG.word_generate(idx)
 
         imageN = imageN.reshape(1,self.conH,self.conW)
         sample = {'image': torch.from_numpy(imageN), 'label': label}

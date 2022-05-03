@@ -13,7 +13,7 @@ global_cfgs = {
 }
 
 dataset_cfgs = {
-    'dataset_train': IAMDataset,
+    'dataset_train': IAMSynthesisDataset,
     'dataset_train_args': {
         'img_list': 'data/IAM/train_list.txt',
         'img_height': 192,
@@ -111,10 +111,9 @@ optimizer_cfgs = {
 }
 
 saving_cfgs = {
-    'saving_iter_interval': 2000,
-    'saving_epoch_interval': 3,
-
-    'saving_path': 'models/hw/iam_raw',
+    'saving_iter_interval': 1,
+    'saving_epoch_interval': 5,
+    'saving_path': 'models/hw/iam_words2line',
 }
 
 def mkdir(path_):
