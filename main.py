@@ -175,9 +175,9 @@ if __name__ == '__main__':
                     [encdec,
                      flatten_label,
                      test_acc_counter])
-            if nEpoch % cfgs.saving_cfgs['saving_epoch_interval'] == 0 and nEpoch != 0:
-                for i in range(0, len(model)):
-                    torch.save(model[i].state_dict(),
-                             cfgs.saving_cfgs['saving_path'] + 'E{}_I{}-{}_M{}.pth'.format(
-                                nEpoch, batch_idx, total_iters, i))   
+        if nEpoch % cfgs.saving_cfgs['saving_epoch_interval'] == 0 and nEpoch != 0:
+            for i in range(0, len(model)):
+                torch.save(model[i].state_dict(),
+                            cfgs.saving_cfgs['saving_path'] + 'E{}_I{}-{}_M{}.pth'.format(
+                            nEpoch, batch_idx, total_iters, i))   
         Updata_Parameters(optimizer_schedulers, frozen = [])

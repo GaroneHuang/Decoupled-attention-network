@@ -5,7 +5,7 @@ import numpy as np
 import os
 import torch
 import cv2
-from augment import distort, stretch, perspective
+import Augment
 import random
 
 class LineGenerate():
@@ -68,11 +68,11 @@ class LineGenerate():
         if self.augment and self.training:
             imageN = imageN.astype('uint8')
             if torch.rand(1) < 0.3:
-                imageN = distort(imageN, random.randint(3, 8))
+                imageN = Augment.GenerateDistort(imageN, random.randint(3, 8))
             if torch.rand(1) < 0.3:
-                imageN = stretch(imageN, random.randint(3, 8))
+                imageN = Augment.GenerateStretch(imageN, random.randint(3, 8))
             if torch.rand(1) < 0.3:
-                imageN = perspective(imageN)
+                imageN = Augment.GeneratePerspective(imageN)
             
         imageN = imageN.astype('float32')
         imageN = (imageN-127.5)/127.5
@@ -143,11 +143,11 @@ class WordGenerate():
         imageN = imageN.astype('uint8')
         if self.augment:
             if torch.rand(1) < 0.3:
-                imageN = distort(imageN, random.randint(3, 8))
+                imageN = Augment.GenerateDistort(imageN, random.randint(3, 8))
             if torch.rand(1) < 0.3:
-                imageN = stretch(imageN, random.randint(3, 8))
+                imageN = Augment.GenerateStretch(imageN, random.randint(3, 8))
             if torch.rand(1) < 0.3:
-                imageN = perspective(imageN)
+                imageN = Augment.GeneratePerspective(imageN)
 
         imageN = imageN.astype('float32')
         imageN = (imageN-127.5)/127.5

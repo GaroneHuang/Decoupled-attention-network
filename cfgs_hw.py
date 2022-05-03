@@ -18,7 +18,7 @@ dataset_cfgs = {
         'img_list': 'data/IAM/train_list.txt',
         'img_height': 192,
         'img_width': 2048,
-        'augment': False, # with the data augmentation toolkit
+        'augment': True, # with the data augmentation toolkit
     },
     'dataloader_train': {
         'batch_size': 24,
