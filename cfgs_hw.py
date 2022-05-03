@@ -116,17 +116,18 @@ saving_cfgs = {
     'saving_path': 'models/hw/iam_words2line',
 }
 
-def mkdir(path_):
-    paths = path_.split('/')
-    command_str = 'mkdir '
-    for i in range(0, len(paths) - 1):
-        command_str = command_str + paths[i] + '/'
-    command_str = command_str[0:-1]
-    os.system(command_str)
+# def mkdir(path_):
+#     paths = path_.split('/')
+#     command_str = 'mkdir '
+#     for i in range(0, len(paths) - 1):
+#         command_str = command_str + paths[i] + '/'
+#     command_str = command_str[0:-1]
+#     os.system(command_str)
 
 def showcfgs(s):
     for key in s.keys():
         print(key , s[key])
     print('')
 
-mkdir(saving_cfgs['saving_path'])
+# mkdir(saving_cfgs['saving_path'])
+os.makedirs(saving_cfgs['saving_path'], exist_ok=True)
