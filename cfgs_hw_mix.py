@@ -21,11 +21,6 @@ dataset_cfgs = {
     #     'augment': True, # with the data augmentation toolkit
     # },
 
-    'dataloader_train': {
-        'batch_size': 24,
-        'shuffle': True,
-        'num_workers': 2,
-    },
     'dataset_train': MixDataset,
     'dataset_train_args': {
         'datasets': [IAMSynthesisDataset, IAMDataset],
@@ -34,6 +29,11 @@ dataset_cfgs = {
             {'img_list': 'data/SCGH/train_list.txt', 'img_height': 192, 'img_width': 2048, 'augment': True}
         ],
         'probs': [0.5, 0.5]
+    },
+    'dataloader_train': {
+        'batch_size': 24,
+        'shuffle': True,
+        'num_workers': 2,
     },
     'dataset_test': IAMDataset,
     'dataset_test_args': {
