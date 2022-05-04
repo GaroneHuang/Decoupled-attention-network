@@ -199,8 +199,7 @@ class IAMSynthesisDataset(Dataset):
 
 class MixDataset(Dataset):
     def __init__(self, datasets, cfgs, probs):
-        super().__init__()
-        self.datasets = [dataset(cfg) for dataset, cfg in zip(datasets, cfgs)]
+        self.datasets = [dataset(**cfg) for dataset, cfg in zip(datasets, cfgs)]
         self.length = np.sum([len(dataset) * prob for dataset, prob in zip(self.datasets, probs)]) * len(datasets)
         self.prob_sums = [0.]
         for prob in probs:
