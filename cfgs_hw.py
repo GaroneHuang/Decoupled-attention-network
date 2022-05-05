@@ -9,7 +9,7 @@ global_cfgs = {
     'state': 'Train',
     'epoch': 100,
     'show_interval': 50,
-    'test_interval': 500
+    'test_batch': 1
 }
 
 dataset_cfgs = {
