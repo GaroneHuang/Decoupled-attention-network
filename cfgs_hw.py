@@ -71,47 +71,86 @@ net_cfgs = {
     'init_state_dict_dtd': None,
 }
 
+# optimizer_cfgs = {
+#     # optim for FE
+#     'optimizer_0': optim.SGD,
+#     'optimizer_0_args':{
+#         'lr': 0.1,
+#         'momentum': 0.9,
+#     },
+
+#     'optimizer_0_scheduler': optim.lr_scheduler.MultiStepLR,
+#     'optimizer_0_scheduler_args': {
+#         'milestones': [20, 40, 60, 80],
+#         'gamma': 0.3162,
+#     },
+
+#     # optim for CAM
+#     'optimizer_1': optim.SGD,
+#     'optimizer_1_args':{
+#         'lr': 0.1,
+#         'momentum': 0.9,
+#     },
+#     'optimizer_1_scheduler': optim.lr_scheduler.MultiStepLR,
+#     'optimizer_1_scheduler_args': {
+#         'milestones': [20, 40, 60, 80],
+#         'gamma': 0.3162,
+#     },
+
+#     # optim for DTD
+#     'optimizer_2': optim.SGD,
+#     'optimizer_2_args':{
+#         'lr': 0.1,
+#         'momentum': 0.9,
+#     },
+#     'optimizer_2_scheduler': optim.lr_scheduler.MultiStepLR,
+#     'optimizer_2_scheduler_args': {
+#         'milestones': [20, 40, 60, 80],
+#         'gamma': 0.3162,
+#     },
+# }
+
 optimizer_cfgs = {
     # optim for FE
-    'optimizer_0': optim.SGD,
+    'optimizer_0': optim.Adadelta,
     'optimizer_0_args':{
-        'lr': 0.1,
-        'momentum': 0.9,
+        'lr': 1.,
+        # 'momentum': 0.9,
     },
 
     'optimizer_0_scheduler': optim.lr_scheduler.MultiStepLR,
     'optimizer_0_scheduler_args': {
-        'milestones': [20, 40, 60, 80],
+        'milestones': [],
         'gamma': 0.3162,
     },
 
     # optim for CAM
-    'optimizer_1': optim.SGD,
+    'optimizer_1': optim.Adadelta,
     'optimizer_1_args':{
-        'lr': 0.1,
-        'momentum': 0.9,
+        'lr': 1.,
+        # 'momentum': 0.9,
     },
     'optimizer_1_scheduler': optim.lr_scheduler.MultiStepLR,
     'optimizer_1_scheduler_args': {
-        'milestones': [20, 40, 60, 80],
+        'milestones': [],
         'gamma': 0.3162,
     },
 
     # optim for DTD
-    'optimizer_2': optim.SGD,
+    'optimizer_2': optim.Adadelta,
     'optimizer_2_args':{
-        'lr': 0.1,
-        'momentum': 0.9,
+        'lr': 1.,
+        # 'momentum': 0.9,
     },
     'optimizer_2_scheduler': optim.lr_scheduler.MultiStepLR,
     'optimizer_2_scheduler_args': {
-        'milestones': [20, 40, 60, 80],
+        'milestones': [],
         'gamma': 0.3162,
     },
 }
 
 saving_cfgs = {
-    'saving_epoch_interval': 5,
+    'saving_epoch_interval': 1,
     'saving_path': 'models/hw/iam_words2line_aug/',
 }
 

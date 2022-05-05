@@ -10,7 +10,7 @@ from torch.utils.data import Dataset, DataLoader
 import datetime
 #------------------------
 from utils import *
-import cfgs_hw_mix as cfgs
+import cfgs_hw as cfgs
 #------------------------
 def display_cfgs(models):
     print('global_cfgs')
@@ -170,13 +170,13 @@ if __name__ == '__main__':
                                     batch_idx,
                                     total_iters,
                                     curr_loss))
-                logs_f = open(os.path.join(cfgs.saving_cfgs['saving_path'], "logs.txt"), "a")
-                logs_f.writelines('Epoch: {}, Iter: {}/{}, Loss dan: {}'.format(
-                                    nEpoch,
-                                    batch_idx,
-                                    total_iters,
-                                    curr_loss) + "\n")
-                logs_f.close()
+                # logs_f = open(os.path.join(cfgs.saving_cfgs['saving_path'], "logs.txt"), "a")
+                # logs_f.writelines('Epoch: {}, Iter: {}/{}, Loss dan: {}'.format(
+                #                     nEpoch,
+                #                     batch_idx,
+                #                     total_iters,
+                #                     curr_loss) + "\n")
+                # logs_f.close()
                 train_acc_counter.show()
             if batch_idx % cfgs.global_cfgs['test_interval'] == 0 and batch_idx != 0:
                 test((test_loader), 
